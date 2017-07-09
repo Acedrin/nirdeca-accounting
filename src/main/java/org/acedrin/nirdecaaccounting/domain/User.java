@@ -1,8 +1,14 @@
 package org.acedrin.nirdecaaccounting.domain;
 
 public class User {
+
     private Long id;
+
     private String login;
+
+    private String familyName;
+
+    private String name;
 
     public User(Long id, String login, String familyName, String name) {
         this.id = id;
@@ -10,9 +16,6 @@ public class User {
         this.familyName = familyName;
         this.name = name;
     }
-
-    private String familyName;
-    private String name;
 
     public Long getId() {
         return id;
