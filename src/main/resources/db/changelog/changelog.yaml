@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: NAA-1
+      author: VEN
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: login
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

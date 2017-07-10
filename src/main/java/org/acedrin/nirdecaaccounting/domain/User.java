@@ -6,15 +6,17 @@ public class User {
 
     private String login;
 
-    private String familyName;
+    private String firstName;
 
-    private String name;
+    private String lastName;
 
-    public User(Long id, String login, String familyName, String name) {
-        this.id = id;
+    public User() {
+    }
+
+    public User(String login, String familyName, String name) {
         this.login = login;
-        this.familyName = familyName;
-        this.name = name;
+        this.firstName = familyName;
+        this.lastName = name;
     }
 
     public Long getId() {
@@ -33,19 +35,19 @@ public class User {
         this.login = login;
     }
 
-    public String getFamilyName() {
-        return familyName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFamilyName(String familyName) {
-        this.familyName = familyName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
