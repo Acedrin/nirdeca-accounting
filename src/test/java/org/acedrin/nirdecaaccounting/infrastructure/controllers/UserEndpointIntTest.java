@@ -29,8 +29,8 @@ public class UserEndpointIntTest {
 
     private static final long ID = 1L;
     private static String LOGIN = "user@example.org";
-    private static String FIRST_NAME = "user@example.org";
-    private static String LAST_NAME = "user@example.org";
+    private static String FIRST_NAME = "firstName";
+    private static String LAST_NAME = "lastName";
 
     @Autowired
     private MockMvc mockMvc;
@@ -51,13 +51,13 @@ public class UserEndpointIntTest {
         // When
         ResultActions resultActions = mockMvc.perform(post("/api/users")
                 .contentType(APPLICATION_JSON)
-                .content("{\"email\":\"" + LOGIN + "\"," +
+                .content("{\"login\":\"" + LOGIN + "\"," +
                         "\"firstName\":\"" + FIRST_NAME + "\"," +
-                        "\"lastName\":\"" + LAST_NAME + "\"\"}"));
+                        "\"lastName\":\"" + LAST_NAME + "\"}"));
 
         // Then
-        resultActions.andExpect(status().isOk())
-                .andExpect(content().string("{\"id\":\"" + ID + "\"," +
+        resultActions.andExpect(status().isCreated())
+                .andExpect(content().string("{\"id\":" + ID + "," +
                         "\"login\":\"" + LOGIN + "\"," +
                         "\"firstName\":\"" + FIRST_NAME + "\"," +
                         "\"lastName\":\"" + LAST_NAME + "\"" +
