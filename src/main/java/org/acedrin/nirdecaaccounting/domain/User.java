@@ -13,10 +13,26 @@ public class User {
     public User() {
     }
 
-    public User(String login, String familyName, String name) {
+    public User(String login, String firstName, String lastName) {
         this.login = login;
-        this.firstName = familyName;
-        this.lastName = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public void prepareToSave() {
+        validate();
+    }
+
+    private void validate() {
+        if (login == null) {
+            throw new InvalidUserException("Missing login");
+        }
+        if (firstName == null) {
+            throw new InvalidUserException("Missing firstName");
+        }
+        if (lastName == null) {
+            throw new InvalidUserException("Missing lastName");
+        }
     }
 
     public Long getId() {
