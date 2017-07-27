@@ -3,6 +3,8 @@ package org.acedrin.nirdecaaccounting.infrastructure.controllers;
 import org.acedrin.nirdecaaccounting.domain.User;
 import org.acedrin.nirdecaaccounting.usecase.CreateUser;
 import org.acedrin.nirdecaaccounting.usecase.GetAllUsers;
+import org.acedrin.nirdecaaccounting.usecase.GetUser;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(UserEndpoint.class)
 public class UserEndpointIntTest {
 
-    private static final long ID = 1L;
+    private static final long USER_ID = 1L;
     private static String LOGIN = "user@example.org";
     private static String FIRST_NAME = "firstName";
     private static String LAST_NAME = "lastName";
@@ -41,11 +43,19 @@ public class UserEndpointIntTest {
     @MockBean
     private GetAllUsers getAllUsers;
 
+    @MockBean
+    private GetUser getUser;
+    private User user;
+
+    @Before
+    public void setUp() throws Exception {
+        user = new User(LOGIN, FIRST_NAME, LAST_NAME);
+        user.setId(USER_ID);
+    }
+
     @Test
     public void post_onUsersEndpoint_shouldReturnCreatedUser_asJson() throws Exception {
         // Given
-        User user = new User(LOGIN, FIRST_NAME, LAST_NAME);
-        user.setId(ID);
         when(createUser.create(any(User.class))).thenReturn(user);
 
         // When
@@ -57,7 +67,7 @@ public class UserEndpointIntTest {
 
         // Then
         resultActions.andExpect(status().isCreated())
-                .andExpect(content().string("{\"id\":" + ID + "," +
+                .andExpect(content().string("{\"id\":" + USER_ID + "," +
                         "\"login\":\"" + LOGIN + "\"," +
                         "\"firstName\":\"" + FIRST_NAME + "\"," +
                         "\"lastName\":\"" + LAST_NAME + "\"" +
@@ -67,7 +77,7 @@ public class UserEndpointIntTest {
     @Test
     public void get_onUsersEndpoint_shouldReturnAllUsers() throws Exception {
         // Given
-        List<User> userList = asList(new User(), new User());
+        List<User> userList = asList(user, new User());
         when(getAllUsers.findAllUsers()).thenReturn(userList);
 
         // When
@@ -76,14 +86,31 @@ public class UserEndpointIntTest {
         // Then
         resultActions.andExpect(status().isOk())
                 .andExpect(content().string("[" +
-                        "{\"id\":null," +
-                        "\"login\":null," +
-                        "\"firstName\":null," +
-                        "\"lastName\":null}," +
+                        "{\"id\":" + USER_ID + "," +
+                        "\"login\":\"" + LOGIN + "\"," +
+                        "\"firstName\":\"" + FIRST_NAME + "\"," +
+                        "\"lastName\":\"" + LAST_NAME + "\"}," +
                         "{\"id\":null," +
                         "\"login\":null," +
                         "\"firstName\":null," +
                         "\"lastName\":null" +
                         "}]"));
+    }
+
+    @Test
+    public void get_onUsersEndpoint_withUserId_shouldReturnAskedUser() throws Exception {
+        // Given
+        when(getUser.findUser(USER_ID)).thenReturn(user);
+
+        // When
+        ResultActions resultActions = mockMvc.perform(get("/api/users/" + USER_ID));
+
+        // Then
+        resultActions.andExpect(status().isOk())
+                .andExpect(content().string("{\"id\":" + USER_ID + "," +
+                                "\"login\":\"" + LOGIN + "\"," +
+                                "\"firstName\":\"" + FIRST_NAME + "\"," +
+                                "\"lastName\":\"" + LAST_NAME + "\"" +
+                                "}"));
     }
 }

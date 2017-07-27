@@ -99,4 +99,19 @@ public class UserJpaRepositoryIntTest {
         // Then
         assertThat(result).containsExactly(user);
     }
+
+    @Test
+    public void findById_shouldReturnExpectedUser() throws Exception {
+        // Given
+        user = userRepository.save(user);
+        Long userId = user.getId();
+        User secondUser = new User("user@example.org", "firstName", "lastName");
+        userRepository.save(secondUser);
+
+        // When
+        User result = userRepository.findById(userId);
+
+        // Then
+        assertThat(result).isEqualToComparingFieldByField(user);
+    }
 }

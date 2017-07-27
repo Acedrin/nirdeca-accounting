@@ -4,6 +4,7 @@ import org.acedrin.nirdecaaccounting.domain.User;
 import org.acedrin.nirdecaaccounting.infrastructure.controllers.forms.CreateUserForm;
 import org.acedrin.nirdecaaccounting.usecase.CreateUser;
 import org.acedrin.nirdecaaccounting.usecase.GetAllUsers;
+import org.acedrin.nirdecaaccounting.usecase.GetUser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,22 +21,23 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UserEndpointUTest {
 
-    private static final String LOGIN = "user@example.org";
-    private static final String FIRST_NAME = "firstName";
-    private static final String LAST_NAME = "LastName";
+    private static final long USER_ID = 1L;
+
+    @Mock
+    private CreateUser createUser;
 
     @Mock
     private GetAllUsers getAllUsers;
 
     @Mock
-    private CreateUser createUser;
+    private GetUser getUser;
 
     private CreateUserForm createUserForm;
     private UserEndpoint userEndpoint;
 
     @Before
     public void setUp() {
-        userEndpoint = new UserEndpoint(createUser, getAllUsers);
+        userEndpoint = new UserEndpoint(createUser, getAllUsers, getUser);
         createUserForm = new CreateUserForm();
     }
 
@@ -63,5 +65,19 @@ public class UserEndpointUTest {
 
         // Then
         assertThat(result).isSameAs(users);
+    }
+
+    @Test
+    public void getUser_shouldAUser() throws Exception {
+        // Given
+        User user = new User();
+        Long userId = USER_ID;
+        when(getUser.findUser(userId)).thenReturn(user);
+
+        // When
+        User result = userEndpoint.getUser(USER_ID);
+
+        // Then
+        assertThat(result).isSameAs(user);
     }
 }
