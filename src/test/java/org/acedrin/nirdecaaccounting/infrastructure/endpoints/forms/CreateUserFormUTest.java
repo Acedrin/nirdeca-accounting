@@ -15,9 +15,9 @@ public class CreateUserFormUTest {
     public void toUser_shouldConvertFormToUser() throws Exception {
         // Given
         CreateUserForm createUserForm = new CreateUserForm();
-        createUserForm.login= LOGIN;
-        createUserForm.firstName= FIRST_NAME;
-        createUserForm.lastName= LAST_NAME;
+        createUserForm.login = LOGIN;
+        createUserForm.firstName = FIRST_NAME;
+        createUserForm.lastName = LAST_NAME;
 
         // When
         User user = createUserForm.toUser();

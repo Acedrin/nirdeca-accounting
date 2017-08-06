@@ -45,6 +45,7 @@ public class UserEndpointIntTest {
 
     @MockBean
     private GetUser getUser;
+
     private User user;
 
     @Before
@@ -108,9 +109,9 @@ public class UserEndpointIntTest {
         // Then
         resultActions.andExpect(status().isOk())
                 .andExpect(content().string("{\"id\":" + USER_ID + "," +
-                                "\"login\":\"" + LOGIN + "\"," +
-                                "\"firstName\":\"" + FIRST_NAME + "\"," +
-                                "\"lastName\":\"" + LAST_NAME + "\"" +
-                                "}"));
+                        "\"login\":\"" + LOGIN + "\"," +
+                        "\"firstName\":\"" + FIRST_NAME + "\"," +
+                        "\"lastName\":\"" + LAST_NAME + "\"" +
+                        "}"));
     }
 }

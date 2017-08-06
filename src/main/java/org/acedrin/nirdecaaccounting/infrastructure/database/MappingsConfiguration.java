@@ -22,7 +22,8 @@ public class MappingsConfiguration extends HibernateJpaAutoConfiguration{
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder factoryBuilder) {
         LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = getSuperEntityManagerFactory(factoryBuilder);
         localContainerEntityManagerFactoryBean.setMappingResources(
-                "db/mappings/user.xml"
+                "db/mappings/user.xml",
+                "db/mappings/expense.xml"
         );
         return localContainerEntityManagerFactoryBean;
     }

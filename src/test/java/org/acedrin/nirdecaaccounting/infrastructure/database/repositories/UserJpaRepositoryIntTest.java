@@ -37,7 +37,7 @@ public class UserJpaRepositoryIntTest {
     }
 
     @Test
-    public void save_shouldPersistUser_wuthAutoIncrementedId() throws Exception {
+    public void save_shouldPersistUser_withAutoIncrementedId() throws Exception {
         // Given
         User firstPersist = userRepository.save(user);
         User secondUser = new User("user@example.org", "firstName", "lastName");
