@@ -1,4 +1,4 @@
-package org.acedrin.nirdecaaccounting.infrastructure.controllers.forms;
+package org.acedrin.nirdecaaccounting.infrastructure.endpoints.forms;
 
 import org.acedrin.nirdecaaccounting.domain.User;
 

@@ -1,7 +1,7 @@
-package org.acedrin.nirdecaaccounting.infrastructure.controllers;
+package org.acedrin.nirdecaaccounting.infrastructure.endpoints;
 
 import org.acedrin.nirdecaaccounting.domain.User;
-import org.acedrin.nirdecaaccounting.infrastructure.controllers.forms.CreateUserForm;
+import org.acedrin.nirdecaaccounting.infrastructure.endpoints.forms.CreateUserForm;
 import org.acedrin.nirdecaaccounting.usecase.CreateUser;
 import org.acedrin.nirdecaaccounting.usecase.GetAllUsers;
 import org.acedrin.nirdecaaccounting.usecase.GetUser;

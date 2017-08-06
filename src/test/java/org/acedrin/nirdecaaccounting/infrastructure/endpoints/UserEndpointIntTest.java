@@ -1,4 +1,4 @@
-package org.acedrin.nirdecaaccounting.infrastructure.controllers;
+package org.acedrin.nirdecaaccounting.infrastructure.endpoints;
 
 import org.acedrin.nirdecaaccounting.domain.User;
 import org.acedrin.nirdecaaccounting.usecase.CreateUser;
