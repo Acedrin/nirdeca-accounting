@@ -1,7 +1,7 @@
 package org.acedrin.nirdecaaccounting.infrastructure.endpoints;
 
-import org.acedrin.nirdecaaccounting.domain.Expense;
-import org.acedrin.nirdecaaccounting.usecase.CreateExpense;
+import org.acedrin.nirdecaaccounting.domain.Operation;
+import org.acedrin.nirdecaaccounting.usecase.CreateOperation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(ExpenseEndpoint.class)
-public class ExpenseEndpointIntTest {
+@WebMvcTest(OperationEndpoint.class)
+public class OperationEndpointIntTest {
 
     private static final Long TRANSACTION_ID = 0L;
     private static final Long USER_ID = 1L;
@@ -32,29 +32,29 @@ public class ExpenseEndpointIntTest {
     private static final Long TAG_ID = 3L;
     private static final String DATE = "10/10/2015";
     private static final Integer AMOUNT = 100;
-    private static final String DESCRIPTION = "Expense description";
+    private static final String DESCRIPTION = "Operation description";
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private CreateExpense createExpense;
+    private CreateOperation createOperation;
 
-    private Expense expense;
+    private Operation operation;
 
     @Before
     public void setUp() throws Exception {
-        expense = new Expense(USER_ID, CATEGORY_ID, TAG_ID, LocalDate.parse(DATE, DateTimeFormatter.ofPattern("dd/MM/yyyy")), AMOUNT, DESCRIPTION);
-        expense.setId(TRANSACTION_ID);
+        operation = new Operation(USER_ID, CATEGORY_ID, TAG_ID, LocalDate.parse(DATE, DateTimeFormatter.ofPattern("dd/MM/yyyy")), AMOUNT, DESCRIPTION);
+        operation.setId(TRANSACTION_ID);
     }
 
     @Test
-    public void post_onExpenseEndpoint_shouldReturnCreatedExpense_asJson() throws Exception {
+    public void post_onOperationEndpoint_shouldReturnCreatedOperation_asJson() throws Exception {
         // Given
-        when(createExpense.create(any(Expense.class))).thenReturn(expense);
+        when(createOperation.create(any(Operation.class))).thenReturn(operation);
 
         // When
-        ResultActions resultActions = mockMvc.perform(post("/api/expenses")
+        ResultActions resultActions = mockMvc.perform(post("/api/operations")
                 .contentType(APPLICATION_JSON)
                 .content("{\"userId\":\"" + USER_ID + "\"," +
                         "\"categoryId\":\"" + CATEGORY_ID + "\"," +

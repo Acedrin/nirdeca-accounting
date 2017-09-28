@@ -4,8 +4,8 @@
                  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     <package>org.acedrin.nirdecaaccounting.domain</package>
 
-    <entity class="org.acedrin.nirdecaaccounting.domain.Expense">
-        <table name="expense"/>
+    <entity class="org.acedrin.nirdecaaccounting.domain.Operation">
+        <table name="operation"/>
 
         <attributes>
             <id name="id">

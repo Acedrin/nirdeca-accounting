@@ -32,7 +32,7 @@ databaseChangeLog:
       author: VEN
       changes:
         - createTable:
-            tableName: expense
+            tableName: operation
             columns:
               - column:
                   name: id
@@ -67,8 +67,8 @@ databaseChangeLog:
                   name: description
                   type: varchar(255)
         - createIndex:
-            tableName: expense
-            indexName: idx-expense-user_id-category_id-tag_id-date
+            tableName: operation
+            indexName: idx-operation-user_id-category_id-tag_id-date
             columns:
               - column:
                   name: user_id

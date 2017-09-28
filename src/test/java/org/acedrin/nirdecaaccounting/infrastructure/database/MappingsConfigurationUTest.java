@@ -32,7 +32,7 @@ public class MappingsConfigurationUTest {
         // Then
         verify(localContainerEntityManagerFactoryBean).setMappingResources(
                 "db/mappings/user.xml",
-                "db/mappings/expense.xml"
+                "db/mappings/operation.xml"
         );
         assertThat(result).isEqualTo(localContainerEntityManagerFactoryBean);
     }

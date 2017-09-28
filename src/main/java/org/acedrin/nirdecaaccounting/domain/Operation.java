@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 
-public class Expense {
+public class Operation {
     private Long id;
 
     private Long userId;
@@ -20,10 +20,10 @@ public class Expense {
 
     private String description;
 
-    public Expense() {
+    public Operation() {
     }
 
-    public Expense(Long userId, Long categoryId, Long tagId, LocalDate date, Integer amount, String description) {
+    public Operation(Long userId, Long categoryId, Long tagId, LocalDate date, Integer amount, String description) {
         this.userId = userId;
         this.categoryId = categoryId;
         this.tagId = tagId;
@@ -38,16 +38,16 @@ validate();
 
     private void validate() {
         if(userId == null) {
-            throw new InvalidExpenseException("Missing userId");
+            throw new InvalidOperationException("Missing userId");
         }
         if(categoryId == null) {
-            throw new InvalidExpenseException("Missing categoryId");
+            throw new InvalidOperationException("Missing categoryId");
         }
         if(date == null) {
-            throw new InvalidExpenseException("Missing date");
+            throw new InvalidOperationException("Missing date");
         }
         if(amount == null) {
-            throw new InvalidExpenseException("Missing amount");
+            throw new InvalidOperationException("Missing amount");
         }
     }
 
