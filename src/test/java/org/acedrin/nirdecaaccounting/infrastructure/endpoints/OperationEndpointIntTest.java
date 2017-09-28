@@ -2,6 +2,7 @@ package org.acedrin.nirdecaaccounting.infrastructure.endpoints;
 
 import org.acedrin.nirdecaaccounting.domain.Operation;
 import org.acedrin.nirdecaaccounting.usecase.CreateOperation;
+import org.acedrin.nirdecaaccounting.usecase.GetAllOperations;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,10 +15,13 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,6 +43,9 @@ public class OperationEndpointIntTest {
 
     @MockBean
     private CreateOperation createOperation;
+
+    @MockBean
+    private GetAllOperations getAllOperations;
 
     private Operation operation;
 
@@ -72,5 +79,34 @@ public class OperationEndpointIntTest {
                         "\"date\":\"" + DATE + "\"," +
                         "\"amount\":" + AMOUNT + "," +
                         "\"description\":\"" + DESCRIPTION + "\"}"));
+    }
+
+    @Test
+    public void get_onOperationsEndpoint_shouldReturnAllOperations() throws Exception {
+        // Given
+        List<Operation> operationList = asList(operation, new Operation());
+        when(getAllOperations.findAllOperations()).thenReturn(operationList);
+
+        // When
+        ResultActions resultActions = mockMvc.perform(get("/api/operations"));
+
+        // Then
+        resultActions.andExpect(status().isOk())
+                .andExpect(content().string("[" +
+                        "{\"id\":" + TRANSACTION_ID + "," +
+                        "\"userId\":" + USER_ID + "," +
+                        "\"categoryId\":" + CATEGORY_ID + "," +
+                        "\"tagId\":" + TAG_ID + "," +
+                        "\"date\":\"" + DATE + "\"," +
+                        "\"amount\":" + AMOUNT + "," +
+                        "\"description\":\"" + DESCRIPTION + "\"}," +
+                        "{\"id\":null," +
+                        "\"userId\":null," +
+                        "\"categoryId\":null," +
+                        "\"tagId\":null," +
+                        "\"date\":null," +
+                        "\"amount\":null," +
+                        "\"description\":null}" +
+                        "]"));
     }
 }
